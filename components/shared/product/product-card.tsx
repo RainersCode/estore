@@ -12,7 +12,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   
   return (
     <Link 
-      href={`/products/${slug}`} 
+      href={`/product/${slug}`} 
       className="block group relative rounded-lg border p-4 hover:shadow-lg transition-shadow"
     >
       {/* Image container with aspect ratio */}
