@@ -1,4 +1,4 @@
-import { ShoppingCart, UserIcon } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ModeToggle from "./mode-toggle";
@@ -11,6 +11,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { MoreVertical } from "lucide-react";
+import UserButton from "./user-button";
+
+
 
 const NavItems = () => {
   const items = (
@@ -22,12 +25,7 @@ const NavItems = () => {
           Cart
         </Link>
       </Button>
-      <Button asChild>
-        <Link href="/sign-in">
-          <UserIcon className="mr-2" />
-          Sign In
-        </Link>
-      </Button>
+      <UserButton />
     </>
   );
 
