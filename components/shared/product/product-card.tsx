@@ -28,7 +28,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       {/* Product details */}
       <div className="mt-4 space-y-2">
         <p className="text-sm text-gray-500">{brand}</p>
-        <h3 className="text-lg font-medium text-gray-900">{name}</h3>
+        <h3 className="text-lg font-medium text-gray-900 dark:text-muted-foreground">{name}</h3>
         
         {/* Price or Out of Stock */}
         {stock ? (

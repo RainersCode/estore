@@ -28,7 +28,7 @@ const ProductDetailsPage = async (props: {
                     <p>
                         {product.brand} {product.category}
                     </p>
-                    <h1 className="h3-bold">
+                    <h1 className="h3-bold text-foreground">
                         {product.name}
                     </h1>
                     <p>

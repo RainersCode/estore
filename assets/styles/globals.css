@@ -61,7 +61,7 @@
   }
   .dark {
     --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
+    --foreground: 0 0% 98%; /* hue saturation lightness (HSL) - 0deg hue, 0% saturation, 98% lightness (nearly white) */
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
