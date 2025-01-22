@@ -1,8 +1,11 @@
-'use server';
+"use server";
 
-import { isRedirectError } from 'next/dist/client/components/redirect-error';
-import { signIn, signOut } from '@/auth';
-import { signInSchema } from '../validators';
+import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { signIn, signOut } from "@/auth";
+
+import { signUpFormSchema, signInSchema } from "../validators";
+import { hashSync } from "bcrypt-ts-edge";
+import { prisma } from "@/db/prisma";
 
 // Sign in the user with credentials
 export async function signInWithCredentials(
@@ -12,23 +15,59 @@ export async function signInWithCredentials(
   try {
     // Set user from form and validate it with Zod schema
     const user = signInSchema.parse({
-      email: formData.get('email'),
-      password: formData.get('password'),
+      email: formData.get("email"),
+      password: formData.get("password"),
     });
 
-    await signIn('credentials', user);
+    await signIn("credentials", user);
 
-    return { success: true, message: 'Signed in successfully' };
+    return { success: true, message: "Signed in successfully" };
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
     }
 
-    return { success: false, message: 'Invalid email or password' };
+    return { success: false, message: "Invalid email or password" };
   }
 }
 
 // Sign the user out
 export async function signOutWithCredentials() {
   await signOut();
+}
+
+export async function signUp(prevState: unknown, formData: FormData) {
+  try {
+    const user = signUpFormSchema.parse({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+      confirmPassword: formData.get("confirmPassword"),
+    });
+
+    const plainPassword = user.password;
+
+    user.password = hashSync(plainPassword, 10);
+
+    await prisma.user.create({
+      data: {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      },
+    });
+
+    await signIn("credentials", {
+      email: user.email,
+      password: plainPassword,
+    });
+
+    return { success: true, message: "User created successfully" };
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+
+    return { success: false, message: "Failed to sign up" };
+  }
 }
