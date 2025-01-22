@@ -34,9 +34,9 @@ const SignUpForm = () => {
         <div>
           <Label htmlFor='name'>Name</Label>
           <Input
+            required
             id='name'
             name='name'
-            required
             type='text'
             defaultValue={signUpDefaultValues.name}
             autoComplete='name'
@@ -45,10 +45,10 @@ const SignUpForm = () => {
         <div>
           <Label htmlFor='email'>Email</Label>
           <Input
+            required
             id='email'
             name='email'
-            required
-            type='email'
+            type='text'
             defaultValue={signUpDefaultValues.email}
             autoComplete='email'
           />
